@@ -12,7 +12,7 @@ const dashboardRoutes = require("./routes/dashboard");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ── Global Middleware ─────────────────────────────────────────────────────────
+
 
 app.use(helmet()); // Security headers
 app.use(cors());
@@ -29,7 +29,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// ── Routes ────────────────────────────────────────────────────────────────────
+
 
 app.get("/", (req, res) => {
   res.json({
@@ -51,13 +51,13 @@ app.use("/users", userRoutes);
 app.use("/records", recordRoutes);
 app.use("/dashboard", dashboardRoutes);
 
-// ── 404 Handler ───────────────────────────────────────────────────────────────
+
 
 app.use((req, res) => {
   res.status(404).json({ error: `Route ${req.method} ${req.path} not found.` });
 });
 
-// ── Global Error Handler ──────────────────────────────────────────────────────
+
 
 app.use((err, req, res, next) => {
   console.error("Unhandled error:", err);
@@ -67,22 +67,22 @@ app.use((err, req, res, next) => {
   });
 });
 
-// ── Start ─────────────────────────────────────────────────────────────────────
+
 
 async function start() {
   try {
     await initDB();
-    console.log("✅ Database initialized");
+    console.log(" Database initialized");
 
     app.listen(PORT, () => {
-      console.log(`\n🚀 Finance API running at http://localhost:${PORT}\n`);
+      console.log(`\n Finance API running at http://localhost:${PORT}\n`);
       console.log("Seeded accounts (for testing):");
       console.log("  admin@finance.com   / admin123   (role: admin)");
       console.log("  analyst@finance.com / analyst123 (role: analyst)");
       console.log("  viewer@finance.com  / viewer123  (role: viewer)\n");
     });
 
-    // Graceful shutdown
+   
     process.on("SIGTERM", () => { saveDB(); process.exit(0); });
     process.on("SIGINT", () => { saveDB(); process.exit(0); });
 
