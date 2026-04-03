@@ -8,7 +8,7 @@ async function initDB() {
   const SQL = await initSqlJs();
   const dbPath = path.join(__dirname, "finance.db");
 
-  // Persist to disk if exists, else start fresh
+  
   if (fs.existsSync(dbPath)) {
     const fileBuffer = fs.readFileSync(dbPath);
     db = new SQL.Database(fileBuffer);
@@ -19,7 +19,7 @@ async function initDB() {
   runMigrations();
   seedData();
 
-  // Auto-save to disk every 5 seconds
+  
   setInterval(() => saveDB(), 5000);
 
   return db;
@@ -70,7 +70,7 @@ function runMigrations() {
 function seedData() {
   const bcrypt = require("bcryptjs");
 
-  // Check if seed already done
+  
   const result = db.exec("SELECT COUNT(*) as count FROM users");
   const count = result[0]?.values[0][0];
   if (count > 0) return;
@@ -92,7 +92,7 @@ function seedData() {
     ["Viewer User", "viewer@finance.com", viewerHash, "viewer"]
   );
 
-  // Seed some financial records
+  
   const records = [
     [5000, "income", "Salary", "2024-01-05", "January salary", 1],
     [200, "expense", "Utilities", "2024-01-10", "Electricity bill", 1],
@@ -113,10 +113,10 @@ function seedData() {
     );
   }
 
-  console.log("✅ Seed data inserted");
+  console.log(" Seed data inserted");
 }
 
-// Helper: run a query and return rows as objects
+
 function query(sql, params = []) {
   const stmt = db.prepare(sql);
   stmt.bind(params);
@@ -128,7 +128,7 @@ function query(sql, params = []) {
   return rows;
 }
 
-// Helper: run an insert/update/delete, return lastInsertRowid or changes
+
 function execute(sql, params = []) {
   db.run(sql, params);
   const meta = db.exec("SELECT last_insert_rowid() as id, changes() as changes");
