@@ -2,8 +2,14 @@
 
 A RESTful backend API for a multi-role finance dashboard. Built with Node.js, Express, and SQLite (via sql.js — no native compilation required).
 
+
+
 ---
 
+## Live Demo
+https://finance-backend-3pcs.onrender.com/
+
+---
 ## Tech Stack
 
 | Layer | Choice | Reason |
